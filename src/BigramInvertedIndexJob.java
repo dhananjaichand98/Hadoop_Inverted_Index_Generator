@@ -36,8 +36,8 @@ public class BigramInvertedIndexJob {
       text = text.trim();
 
       String splitText[] = text.split("\\s+");
-      for(int i=1; i<splitText.length; i++){
-        String firstWord = splitText[i-1];
+      for (int i = 1; i < splitText.length; i++) {
+        String firstWord = splitText[i - 1];
         String secondWord = splitText[i];
         String s = firstWord + " " + secondWord;
         word.set(s);
@@ -53,7 +53,7 @@ public class BigramInvertedIndexJob {
 
     public void reduce(Text key, Iterable<Text> values,
         Context context) throws IOException, InterruptedException {
-      
+
       Map<String, Integer> m = new HashMap<>();
 
       for (Text val : values) {
@@ -62,7 +62,6 @@ public class BigramInvertedIndexJob {
       }
 
       StringBuilder sb = new StringBuilder();
-      // sb.append("\t");
       for (Map.Entry<String, Integer> entry : m.entrySet()) {
         sb.append(entry.getKey());
         sb.append(":");
@@ -89,10 +88,10 @@ public class BigramInvertedIndexJob {
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(Text.class);
     
-    String ipFile = args[0];
+
     String opFile = args[1];
     
-    FileInputFormat.addInputPath(job, new Path(ipFile));
+
     FileOutputFormat.setOutputPath(job, new Path(opFile));
 
     System.exit(job.waitForCompletion(true) ? 0 : -1);

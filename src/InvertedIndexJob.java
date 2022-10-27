@@ -49,7 +49,7 @@ public class InvertedIndexJob {
 
     public void reduce(Text key, Iterable<Text> values,
         Context context) throws IOException, InterruptedException {
-      
+
       Map<String, Integer> m = new HashMap<>();
 
       for (Text val : values) {
@@ -83,10 +83,10 @@ public class InvertedIndexJob {
     job.setReducerClass(InvertedIndexReducer.class);
     job.setOutputKeyClass(Text.class);
     job.setOutputValueClass(Text.class);
-    
+
     String ipFile = args[0];
     String opFile = args[1];
-    
+
     FileInputFormat.addInputPath(job, new Path(ipFile));
     FileOutputFormat.setOutputPath(job, new Path(opFile));
 
